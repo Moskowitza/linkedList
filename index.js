@@ -94,6 +94,12 @@ class LinkedList {
     this.size -= 1;
   }
 
+  // clear list
+  clearList() {
+    this.head = null;
+    this.size = 0;
+  }
+
   // print list
   printList() {
     let current = this.head;
