@@ -1,34 +1,43 @@
 class Node {
-  constructor(data, next = null) {
+  constructor(data, next = null, previous = null) {
     this.data = data;
     this.next = next;
+    this.previous = previous;
   }
 }
-class LinkedList {
+class DoublyLinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
     this.size = 0;
   }
 
   // insert first node
+
   insertFirst(data) {
-    this.head = new Node(data, this.head);
+    const node = new Node(data, this.head, null);
+    // if there is head, give it a prev
+    if (this.head) {
+      this.head.previous = node;
+      this.head = node;
+    } else {
+      // the list is empty, so set head and tail to current
+      this.head = node;
+      this.tail = node;
+    }
     this.size += 1;
   }
 
   // insert last node
   insertLast(data) {
-    const node = new Node(data);
-    let current;
-    if (this.head == null) {
-      this.head = node;
+    const node = new Node(data, null, this.tail);
+    if (this.tail) {
+      this.tail.next = node;
+      this.tail = node;
     } else {
-      current = this.head;
-      while (current) {
-        current = current.next;
-      }
-      this.size += 1;
+      this.insertFirst(data);
     }
+    this.size += 1;
   }
 
   // insert at index
@@ -40,7 +49,7 @@ class LinkedList {
     }
     // insert to the first position
     if (index === 0) {
-      this.head = new Node(data, this.head);
+      this.head = new Node(data, this.head, null);
       return; // return, no need to proceed
     }
     const node = new Node(data);
@@ -54,6 +63,7 @@ class LinkedList {
       current = current.next;
     }
     node.next = current;
+    node.previous = previous;
     previous.next = node;
     this.size += 1;
   }
@@ -69,6 +79,9 @@ class LinkedList {
       }
       count += 1;
       current = current.next;
+      if (current == null) {
+        console.log(`${index} out of bounds`);
+      }
     }
   }
 
@@ -81,16 +94,20 @@ class LinkedList {
     console.log(`Removing: ${this.getAt(index)}`);
     let count = 0;
     let current = this.head;
-    let previousNode;
+    let previous;
+    let thisNode;
     if (index === 0) {
       this.head = current.next;
+      this.head.previous = null;
     } else {
       while (count < index) {
-        previousNode = current;
-        current = current.next;
         count += 1;
+        thisNode = current;
+        current = current.next;
       }
-      previousNode.next = current.next;
+      const newVal = current.next;
+      newVal.previous = current.previous;
+      thisNode.next = newVal;
     }
     this.size -= 1;
   }
@@ -98,6 +115,7 @@ class LinkedList {
   // clear list
   clearList() {
     this.head = null;
+    this.tail = null;
     this.size = 0;
   }
 
@@ -105,17 +123,19 @@ class LinkedList {
   printList() {
     let current = this.head;
     while (current) {
-      console.log(current.data);
+      console.log('__________________');
+      console.log(`Data: ${current.data}`);
+      console.log(`Next data: ${current.next ? current.next.data : 'TAIL'}`);
+      console.log(`Previous Data ${current.previous ? current.previous.data : 'HEAD'}`);
       current = current.next;
     }
   }
 }
-const ll = new LinkedList();
-ll.insertFirst(100);
-ll.insertFirst(200);
-ll.insertFirst(400);
-ll.insertFirst(500);
-ll.insertAt('cat', 2);
-ll.removeAt(3);
-
-ll.printList();
+const dll = new DoublyLinkedList();
+dll.insertFirst('e');
+dll.insertFirst('d');
+dll.insertFirst('c');
+dll.insertFirst('b');
+dll.insertFirst('a');
+dll.insertAt('?', 5);
+dll.printList();
