@@ -9,6 +9,10 @@ On each pass:
 - else if arr1[0] > arr2[0] remove arr2[0] from arr2
 - else arr1[0]==arr2[0] push arr1[0] into resulting array and remove both arr1[0] & arr2[0]
 
+## Recursion
+
+Recursion is when a function calls itself. Take care not to create an infinite loop. In this example we'll add up the sum of every number up to a given value (Fibonacci sequence).
+
 ## Linked List
 
 A linked list is collection of nodes where each node holds a reference to it's following, "next", node. A linked list holds reference to the head node.
