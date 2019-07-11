@@ -2,23 +2,23 @@ const generate = require('./arrayGenerator');
 
 const arr1 = generate(50).sort((a, b) => a - b);
 const arr2 = generate(25).sort((a, b) => a - b);
-console.log(arr1);
-console.log(arr2);
-function intersection_destructive(a, b) {
-  const result = [];
-  while (a.length > 0 && b.length > 0) {
-    if (a[0] < b[0]) {
-      a.shift();
-    } else if (a[0] > b[0]) {
-      b.shift();
-    } /* they're equal */ else {
-      result.push(a.shift());
-      b.shift();
+
+function intersectionDestructive(arr1, arr2) {
+  const result = []; /* Our New Array */
+  while (arr1.length > 0 && arr2.length > 0) {
+    if (arr1[0] < arr2[0]) {
+      arr1.shift();
+    } else if (arr1[0] > arr2[0]) {
+      arr2.shift();
+    } else {
+      result.push(arr1[0]);
+      arr1.shift();
+      arr2.shift();
     }
   }
 
   return result;
 }
 
-const result = intersection_destructive(arr1, arr2);
-console.log(result);
+const arr3 = intersectionDestructive(arr1, arr2);
+console.log(arr3);
