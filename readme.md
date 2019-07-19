@@ -29,6 +29,10 @@ A queue is an _array_ that follows the rule: Items are _added_ to the end and _r
 
 A stack is an _array_ that follows the rule: Items are _added_ to the top or _removed_ from the top of the stack. This is how the "call stack" works. Last in, First Out
 
+## Double Counter
+
+We can add up values in an array and store them in a Map object. We can sort the values by keys or values.
+
 ## Hash Table
 
 ## Heap
